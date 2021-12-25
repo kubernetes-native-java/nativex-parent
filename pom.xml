@@ -9,29 +9,14 @@
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    
     <packaging>pom</packaging>
-
     <groupId>io.kubernetesnativejava</groupId>
     <artifactId>kubernetes-native-java-spring-native-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    
     <properties>
         <artifactory-maven-plugin.version>3.2.3</artifactory-maven-plugin.version>
     </properties>
-    <!-- 
-    <modules>
-
-        <module>fabric8-spring-native</module>
-        <module>kubernetes-java-spring-native</module>
-
-        <module>fabric8-sample-controller</module>
-        <module>kubernetes-java-sample-controller</module>
-
-    </modules>
-    -->
-
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.jfrog.buildinfo</groupId>
@@ -93,44 +78,44 @@
 
     <!--  -->
     <repositories>
-    <repository>
-    <snapshots>
-    <enabled>false</enabled>
-    </snapshots>
-    <id>central</id>
-    <name>libs-release</name>
-    <url>
-    https://cloudnativejava.jfrog.io/cloudnativejava/libs-release
-    </url>
-    </repository>
-    <repository>
-    <snapshots/>
-    <id>snapshots</id>
-    <name>libs-snapshot</name>
-    <url>
-    https://cloudnativejava.jfrog.io/cloudnativejava/libs-snapshot
-    </url>
-    </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>
+                https://cloudnativejava.jfrog.io/cloudnativejava/libs-release
+            </url>
+        </repository>
+        <repository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>
+                https://cloudnativejava.jfrog.io/cloudnativejava/libs-snapshot
+            </url>
+        </repository>
     </repositories>
     <pluginRepositories>
-    <pluginRepository>
-    <snapshots>
-    <enabled>false</enabled>
-    </snapshots>
-    <id>central</id>
-    <name>plugins-release</name>
-    <url>
-    https://cloudnativejava.jfrog.io/cloudnativejava/plugins-release
-    </url>
-    </pluginRepository>
-    <pluginRepository>
-    <snapshots/>
-    <id>snapshots</id>
-    <name>plugins-snapshot</name>
-    <url>
-    https://cloudnativejava.jfrog.io/cloudnativejava/plugins-snapshot
-    </url>
-    </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>plugins-release</name>
+            <url>
+                https://cloudnativejava.jfrog.io/cloudnativejava/plugins-release
+            </url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>plugins-snapshot</name>
+            <url>
+                https://cloudnativejava.jfrog.io/cloudnativejava/plugins-snapshot
+            </url>
+        </pluginRepository>
     </pluginRepositories>
     <!--  -->
 
