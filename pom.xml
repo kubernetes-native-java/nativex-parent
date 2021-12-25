@@ -7,7 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.2</version>
-        <relativePath/> 
+        <relativePath/>
     </parent>
     <packaging>pom</packaging>
     <groupId>io.kubernetesnativejava</groupId>
@@ -15,10 +15,38 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <java.version>17</java.version>
+        <spring-native.version>0.11.1</spring-native.version>
         <repackage.classifier/>
         <spring-native.version>0.11.1</spring-native.version>
-        <artifactory-maven-plugin.version>3.2.3</artifactory-maven-plugin.version>
+        <artifactory-maven-plugin.version>3.2.3
+        </artifactory-maven-plugin.version>
+        <reflections.version>0.9.11</reflections.version>
+        <fabric8.version>4.10.3</fabric8.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.fabric8</groupId>
+                <artifactId>kubernetes-client</artifactId>
+                <version>${fabric8.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-native</artifactId>
+                <version>${spring-native.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-aot</artifactId>
+                <version>${spring-native.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
