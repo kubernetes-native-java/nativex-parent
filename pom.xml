@@ -9,11 +9,19 @@
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    
     <packaging>pom</packaging>
+
     <groupId>io.kubernetesnativejava</groupId>
     <artifactId>kubernetes-native-java-spring-native-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    
+    <properties>
+        <artifactory-maven-plugin.version>3.2.3</artifactory-maven-plugin.version>
+    </properties>
+    <!-- 
     <modules>
+
         <module>fabric8-spring-native</module>
         <module>kubernetes-java-spring-native</module>
 
@@ -21,4 +29,109 @@
         <module>kubernetes-java-sample-controller</module>
 
     </modules>
+    -->
+
+     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jfrog.buildinfo</groupId>
+                <artifactId>artifactory-maven-plugin</artifactId>
+                <version>${artifactory-maven-plugin.version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                        <configuration>
+                            <deployProperties>
+                                <build.vcsRevision>
+                                    {{GITHUB_SHA}}
+                                </build.vcsRevision>
+                            </deployProperties>
+                            <publisher>
+                                <contextUrl>
+                                    https://cloudnativejava.jfrog.io/cloudnativejava
+                                </contextUrl>
+                                <username>${env.ARTIFACTORY_USERNAME}</username>
+                                <password>${env.ARTIFACTORY_PASSWORD}</password>
+                                <repoKey>libs-release-local</repoKey>
+                                <snapshotRepoKey>libs-snapshot-local
+                                </snapshotRepoKey>
+                            </publisher>
+                            <buildInfo>
+                                <agentName>Github Actions</agentName>
+                                <buildNumber>{{GITHUB_RUN_ID}}
+                                </buildNumber>
+                                <buildUrl>
+                                    http://travis-ci.org/{{GITHUB_REPOSITORY}}/builds/{{GITHUB_RUN_ID}}
+                                </buildUrl>
+                                <principal>{{USER}}</principal>
+                                <vcsRevision>{{GITHUB_SHA}}</vcsRevision>
+                            </buildInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>0.0.29</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--  -->
+    <repositories>
+    <repository>
+    <snapshots>
+    <enabled>false</enabled>
+    </snapshots>
+    <id>central</id>
+    <name>libs-release</name>
+    <url>
+    https://cloudnativejava.jfrog.io/cloudnativejava/libs-release
+    </url>
+    </repository>
+    <repository>
+    <snapshots/>
+    <id>snapshots</id>
+    <name>libs-snapshot</name>
+    <url>
+    https://cloudnativejava.jfrog.io/cloudnativejava/libs-snapshot
+    </url>
+    </repository>
+    </repositories>
+    <pluginRepositories>
+    <pluginRepository>
+    <snapshots>
+    <enabled>false</enabled>
+    </snapshots>
+    <id>central</id>
+    <name>plugins-release</name>
+    <url>
+    https://cloudnativejava.jfrog.io/cloudnativejava/plugins-release
+    </url>
+    </pluginRepository>
+    <pluginRepository>
+    <snapshots/>
+    <id>snapshots</id>
+    <name>plugins-snapshot</name>
+    <url>
+    https://cloudnativejava.jfrog.io/cloudnativejava/plugins-snapshot
+    </url>
+    </pluginRepository>
+    </pluginRepositories>
+    <!--  -->
+
 </project>
