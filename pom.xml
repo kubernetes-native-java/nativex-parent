@@ -71,8 +71,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-
-
             <plugin>
                 <groupId>org.springframework.experimental</groupId>
                 <artifactId>spring-aot-maven-plugin</artifactId>
@@ -92,8 +90,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
             <plugin>
                 <groupId>org.jfrog.buildinfo</groupId>
                 <artifactId>artifactory-maven-plugin</artifactId>
@@ -128,7 +124,7 @@
                                 <buildNumber>{{GITHUB_RUN_ID}}
                                 </buildNumber>
                                 <buildUrl>
-                                    http://travis-ci.org/{{GITHUB_REPOSITORY}}/builds/{{GITHUB_RUN_ID}}
+                                    http://github.com/{{GITHUB_REPOSITORY}}/runs/{{GITHUB_RUN_ID}}
                                 </buildUrl>
                                 <principal>{{USER}}</principal>
                                 <vcsRevision>{{GITHUB_SHA}}</vcsRevision>
