@@ -21,8 +21,6 @@
         </artifactory-maven-plugin.version>
         <reflections.version>0.9.11</reflections.version>
         <fabric8.version>5.11.1</fabric8.version>
-
-        <!--        <fabric8.version>4.10.3</fabric8.version>-->
         <kubernetes-client-java.version>14.0.0</kubernetes-client-java.version>
     </properties>
     <dependencyManagement>
@@ -58,6 +56,7 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <inherited>true</inherited>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
@@ -70,86 +69,87 @@
                         </image>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <inherited>true</inherited>
+                    <groupId>org.springframework.experimental</groupId>
+                    <artifactId>spring-aot-maven-plugin</artifactId>
+                    <version>${spring-native.version}</version>
+                    <executions>
+                        <execution>
+                            <id>test-generate</id>
+                            <goals>
+                                <goal>test-generate</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>generate</id>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <inherited>true</inherited>
+                    <groupId>org.jfrog.buildinfo</groupId>
+                    <artifactId>artifactory-maven-plugin</artifactId>
+                    <version>${artifactory-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>build-info</id>
+                            <goals>
+                                <goal>publish</goal>
+                            </goals>
+                            <configuration>
+                                <deployProperties>
+                                    <build.vcsRevision>
+                                        {{GITHUB_SHA}}
+                                    </build.vcsRevision>
+                                </deployProperties>
+                                <publisher>
+                                    <contextUrl>
+                                        https://cloudnativejava.jfrog.io/cloudnativejava
+                                    </contextUrl>
+                                    <username>${env.ARTIFACTORY_USERNAME}
+                                    </username>
+                                    <password>${env.ARTIFACTORY_PASSWORD}
+                                    </password>
+                                    <repoKey>libs-release-local</repoKey>
+                                    <snapshotRepoKey>libs-snapshot-local
+                                    </snapshotRepoKey>
+                                </publisher>
+                                <buildInfo>
+                                    <agentName>Github Actions</agentName>
+                                    <buildNumber>{{GITHUB_RUN_ID}}
+                                    </buildNumber>
+                                    <buildUrl>
+                                        http://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}
+                                    </buildUrl>
+                                    <principal>{{USER}}</principal>
+                                    <vcsRevision>{{GITHUB_SHA}}</vcsRevision>
+                                </buildInfo>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <inherited>true</inherited>
+                    <groupId>io.spring.javaformat</groupId>
+                    <artifactId>spring-javaformat-maven-plugin</artifactId>
+                    <version>0.0.29</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <inherited>true</inherited>
+                            <goals>
+                                <goal>validate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.experimental</groupId>
-                <artifactId>spring-aot-maven-plugin</artifactId>
-                <version>${spring-native.version}</version>
-                <executions>
-                    <execution>
-                        <id>test-generate</id>
-                        <goals>
-                            <goal>test-generate</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jfrog.buildinfo</groupId>
-                <artifactId>artifactory-maven-plugin</artifactId>
-                <version>${artifactory-maven-plugin.version}</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>build-info</id>
-                        <goals>
-                            <goal>publish</goal>
-                        </goals>
-                        <configuration>
-                            <deployProperties>
-                                <build.vcsRevision>
-                                    {{GITHUB_SHA}}
-                                </build.vcsRevision>
-                            </deployProperties>
-                            <publisher>
-                                <contextUrl>
-                                    https://cloudnativejava.jfrog.io/cloudnativejava
-                                </contextUrl>
-                                <username>${env.ARTIFACTORY_USERNAME}
-                                </username>
-                                <password>${env.ARTIFACTORY_PASSWORD}
-                                </password>
-                                <repoKey>libs-release-local</repoKey>
-                                <snapshotRepoKey>libs-snapshot-local
-                                </snapshotRepoKey>
-                            </publisher>
-                            <buildInfo>
-                                <agentName>Github Actions</agentName>
-                                <buildNumber>{{GITHUB_RUN_ID}}
-                                </buildNumber>
-                                <buildUrl>
-                                    http://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}
-                                </buildUrl>
-                                <principal>{{USER}}</principal>
-                                <vcsRevision>{{GITHUB_SHA}}</vcsRevision>
-                            </buildInfo>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.spring.javaformat</groupId>
-                <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>0.0.29</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <inherited>true</inherited>
-                        <goals>
-                            <goal>validate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
     <repositories>
         <repository>
