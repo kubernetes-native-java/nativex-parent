@@ -53,6 +53,15 @@
         </dependencies>
     </dependencyManagement>
     <build>
+        <plugins>
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.jfrog.buildinfo</groupId>
+                <artifactId>artifactory-maven-plugin</artifactId>
+                <version>${artifactory-maven-plugin.version}</version>
+
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -191,6 +200,7 @@
             </url>
         </pluginRepository>
     </pluginRepositories>
+
     <!--  -->
     <profiles>
         <profile>
